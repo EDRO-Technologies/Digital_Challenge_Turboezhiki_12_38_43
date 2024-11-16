@@ -49,11 +49,18 @@ checklistRouter.get("/checklist", async (req, res) => {
 
 checklistRouter.get("/checklist/history", async (req, res) => {
     const page = parseInt(req.query.page as string) || 0
-    const searchString = inputHandler.defaultHandler(req.query.searchString as string) || ""
 
     const pageSize = 10
 
-    
+    const skillRows = await prisma.checklist_history.findMany({
+        where: {
+            userId: req.tokenID
+        },
+        skip: page * pageSize,
+        take: pageSize
+    })
+
+    res.send(skillRows)
 })
 
 export default checklistRouter
