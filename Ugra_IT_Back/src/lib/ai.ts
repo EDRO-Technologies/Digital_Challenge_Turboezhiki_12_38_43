@@ -24,7 +24,7 @@ export async function getChecklist(goal: string, skills: string): Promise<string
           },
           {
             "role": "user",
-            "text": `Напиши чек лист для : "${goal}" \n Учитывая, что я уже знаю: "${skills}"`
+            "text": `Напиши чек лист для : "${goal}" \n Учитывая, что я уже знаю: "${skills}" и если я это уже знаю, то дай чек лист для повышения квалификации`
           }
         ]
       }

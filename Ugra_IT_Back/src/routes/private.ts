@@ -7,6 +7,7 @@ import { PrismaClient } from "@prisma/client";
 import token from "../lib/token";
 import userDataRouter from "./private/user_data";
 import userRouter from "./private/user";
+import checklistRouter from "./private/checklist";
 
 const prisma = new PrismaClient();
 
@@ -122,7 +123,7 @@ routerPrivate.post('/upload_file', upload.single('file'), async (req, res) => {
 })
 
   
-
+routerPrivate.use(checklistRouter)
 routerPrivate.use(userDataRouter)
 routerPrivate.use(userRouter)
 
