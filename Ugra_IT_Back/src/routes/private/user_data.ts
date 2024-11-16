@@ -1,0 +1,103 @@
+import express from "express";
+const userDataRouter = express.Router();
+
+import { PrismaClient } from "@prisma/client";
+import inputHandler from "../../handlers/inputHandler";
+
+const prisma = new PrismaClient();
+
+userDataRouter.post("/data/programmer", async (req, res) => {
+    const birthDate = inputHandler.defaultHandler(req.body.birthDate) 
+    const eduStatus = parseInt(req.body.eduStatus) 
+    const expYear = parseInt(req.body.expYear) 
+    const eduPlace = inputHandler.defaultHandler(req.body.birthDate) || null
+    // const birthDate = inputHandler.defaultHandler(req.body.birthDate) 
+
+    if(!birthDate || !expYear || !eduStatus || eduStatus < 0 || eduStatus > 8){
+        res.status(400).send("Данные введены неправильно")
+    }
+
+    const dataRow = await prisma.programmerInfo.findFirst({
+        where: {
+            userId: req.tokenID 
+        }
+    })
+
+    if(dataRow){
+        res.sendStatus(409)
+        return
+    }
+
+    const response = await prisma.programmerInfo.create({
+        data: {
+            userId: req.tokenID,
+            birthDate: new Date(birthDate as string),
+            eduStatus: eduStatus,
+            expYear: expYear,
+            eduPlace: eduPlace
+        }
+    })
+
+    res.sendStatus(200)
+})
+
+userDataRouter.post("/data/company", async (req, res) => {
+    const companyName = inputHandler.defaultHandler(req.body.companyName) 
+    const staffNum = parseInt(req.body.staffNum) 
+    const isResident = Boolean(req.body.isResident)
+    const isInnovative = Boolean(req.body.isInnovative)
+    const inn = inputHandler.defaultHandler(req.body.inn) 
+    // const birthDate = inputHandler.defaultHandler(req.body.birthDate) 
+
+    if(!companyName || !staffNum || !isResident || !isInnovative || !inn){
+        res.status(400).send("Данные введены неправильно")
+        return
+    }
+
+    const dataRow = await prisma.companyInfo.findFirst({
+        where: {
+            userId: req.tokenID 
+        }
+    })
+
+    if(dataRow){
+        res.sendStatus(409)
+        return
+    }
+
+    const response = await prisma.companyInfo.create({
+        data: {
+            userId: req.tokenID,
+            isInnovative: isInnovative,
+            companyName: companyName,
+            staffNum: staffNum,
+            isResident: isResident,
+            inn: inn
+        }
+    })
+
+    res.sendStatus(200)
+})
+
+userDataRouter.get("/data/skill/search", async (req, res) => {
+    const page = parseInt(req.query.page as string) || 0
+    const searchString = inputHandler.defaultHandler(req.query.searchString as string) || ""
+
+    const pageSize = 10
+
+    const skillRows = await prisma.skill.findMany({
+        where: {
+            name: {
+                contains: searchString,
+                mode: 'insensitive', 
+            },
+        },
+        skip: page * pageSize,
+        take: pageSize
+    })
+
+    res.send(skillRows)
+})
+
+
+export default userDataRouter

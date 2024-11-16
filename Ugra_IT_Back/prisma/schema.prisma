@@ -1,0 +1,115 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  id            Int              @id @default(autoincrement())
+  email         String           @db.VarChar(127)
+  password_hash String           @db.VarChar(255)
+  name          String           @db.VarChar(127)
+  surname       String           @db.VarChar(127)
+  middleName    String?          @db.VarChar(127)
+  role          Int              @db.SmallInt //Обычный пользователь = 0, ХР = 1
+  createdAt     DateTime         @db.Timestamptz(6)
+  banned        Boolean
+  lastseen      DateTime?        @db.Timestamptz(6)
+  refreshTokens refreshTokens[]
+  skill_to_user skill_to_user[]
+  programmer    programmerInfo[]
+  file_url      file_url[]
+  file_access   file_access[]
+  company       companyInfo[]
+  user_photo    user_photo[]
+}
+
+model skill {
+  id            Int             @id @default(autoincrement())
+  name          String
+  skill_to_user skill_to_user[]
+}
+
+model user_photo {
+  id      Int      @id @default(autoincrement())
+  userId  Int
+  photoId Int
+  photo   file_url @relation(fields: [photoId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user    user     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model skill_to_user {
+  id       Int     @id @default(autoincrement())
+  userId   Int
+  skillId  Int
+  verified Boolean
+  skill    skill   @relation(fields: [skillId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user     user    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model programmerInfo {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  birthDate DateTime @db.Date
+  expYear   Int      @db.SmallInt
+  eduStatus Int      @db.SmallInt //0 - Нет образования, 1-Базовое, 2- Среднее общее, 3- Среднее проф., 4- Неоконч. высш. 5- Высшее, 6-Магистратура, 7-Кандидат наук, 8-Доктор наук
+  eduPlace  String?
+  user      user     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model companyInfo {
+  id           Int     @id @default(autoincrement())
+  userId       Int
+  companyName  String
+  inn          String
+  staffNum     Int
+  isResident   Boolean
+  isInnovative Boolean
+  user         user    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model event {
+  id    Int      @id @default(autoincrement())
+  name  String
+  date  DateTime @db.Timestamptz(6)
+  place String
+}
+
+model achivements {
+  id Int @id @default(autoincrement())
+}
+
+model refreshTokens {
+  id           Int      @id @default(autoincrement())
+  userId       Int
+  refreshToken String   @db.VarChar(255)
+  expiresAt    DateTime @db.Timestamptz(6)
+  user         user     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model file_url {
+  id          Int           @id @default(autoincrement())
+  fileUrl     String
+  private     Boolean
+  author      Int
+  user        user?         @relation(fields: [author], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  file_access file_access[]
+  user_photo  user_photo[]
+}
+
+model file_access {
+  id        Int       @id @default(autoincrement())
+  fileUrlId Int
+  userId    Int
+  user      user?     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  fileUrl   file_url? @relation(fields: [fileUrlId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
