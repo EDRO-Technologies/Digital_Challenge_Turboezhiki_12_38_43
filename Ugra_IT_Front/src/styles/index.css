@@ -127,15 +127,6 @@ body {
     @apply border-border;
   }
   body {
-    @apply bg-[#F4F5FF] text-foreground;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
+    @apply bg-accent text-foreground;
   }
 }

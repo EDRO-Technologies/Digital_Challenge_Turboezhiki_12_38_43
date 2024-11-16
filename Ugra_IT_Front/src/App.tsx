@@ -10,6 +10,8 @@ import NextForm from "./pages/NextForm";
 import PrivateRoute from "./utils/PrivateRoute";
 import Event from "./pages/Event";
 import Account from "./pages/Account";
+import Ai from "./pages/Ai";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -24,9 +26,14 @@ function App() {
         </Route>
         <Route path="/" element={<PrivateRoute />}>
           <Route path={"tests"} element={<Home />} />
-          <Route path={"event"} element={<Event />} />
+          <Route index path={"event"} element={<Event />} />
+          <Route path={"/"} element={<Event />} />
+
           <Route path={"account"} element={<Account />} />
+          <Route path={"navzlet-ai"} element={<Ai />} />
         </Route>
+
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );

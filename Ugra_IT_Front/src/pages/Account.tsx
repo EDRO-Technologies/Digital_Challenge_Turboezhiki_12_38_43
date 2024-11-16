@@ -19,12 +19,10 @@ function formatDate(inputDate) {
     throw new Error("Некорректная дата");
   }
 
-  // Получаем день, месяц и год
   const day = String(date.getDate()).padStart(2, "0");
-  const month = String(date.getMonth() + 1).padStart(2, "0"); // Месяцы начинаются с 0
+  const month = String(date.getMonth() + 1).padStart(2, "0");
   const year = date.getFullYear();
 
-  // Возвращаем строку в формате дд.мм.гггг
   return `${day}.${month}.${year}`;
 }
 
@@ -35,13 +33,9 @@ const fetchUserById = async (id) => {
 const Account = () => {
   const user = useUserStore((state) => state.user);
   const [choose, setChoose] = useState("main");
-  const { data, isLoading, error } = useQuery(
-    ["user", user?.id],
-    () => fetchUserById(user?.id),
-    {
-      enabled: !!user?.id,
-    }
-  );
+  const { data } = useQuery(["user", user?.id], () => fetchUserById(user?.id), {
+    enabled: !!user?.id,
+  });
   const [imageSource, setImageSource] = useState(
     "https://i.pinimg.com/originals/b6/1d/6a/b61d6a1079d8e54932dcde9dc260dd2e.gif"
   );
@@ -53,14 +47,7 @@ const Account = () => {
       <Header />
       <div className="container mx-auto rounded-lg border">
         <div className="bg-custom-gradient relative h-[170px] rounded-t-lg">
-          <Avatar
-            variant="circle"
-            src={imageSource}
-            alt="Avatar"
-            borderRadius="50px"
-            smartImgFit={"center"}
-            onChange={handleChangeSource}
-          />
+          <div className="w-[120px] absolute bottom-[-50px] ml-[20px] aspect-square bg-gray-800 rounded-full"></div>
         </div>
 
         <div className="flex  py-[15px] mt-[50px] px-[15px] gap-[10px]">

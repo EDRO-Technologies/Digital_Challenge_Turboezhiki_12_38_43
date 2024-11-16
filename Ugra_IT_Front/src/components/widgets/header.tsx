@@ -29,6 +29,14 @@ const Header = () => {
               <Link to={"/grants"}>Гранты</Link>
             </li>
             <li>
+              <Link
+                className="cursor-pointer hover:bg-background p-[15px] hover:rounded-lg"
+                to={"/navzlet-ai"}
+              >
+                На взлёт! AI
+              </Link>
+            </li>
+            <li>
               <Link to={"/courses"}>Курсы</Link>
             </li>
           </ul>
