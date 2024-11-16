@@ -9,7 +9,6 @@ async function getToken(): Promise<string> {
 }
 
 export async function getChecklist(goal: string, skills: string): Promise<string> {
-    console.log(`Напиши чек лист для : "${goal}" \n Учитывая, что я уже знаю: "${skills}"`)
     let data = {
         "modelUri": `gpt://${process.env["YANDEX_FOLDER"]}/yandexgpt-lite`,
         "completionOptions": {

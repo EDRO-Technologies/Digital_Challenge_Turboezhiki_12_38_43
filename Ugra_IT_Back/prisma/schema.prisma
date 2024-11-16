@@ -14,30 +14,32 @@ datasource db {
 }
 
 model user {
-  id            Int              @id @default(autoincrement())
-  email         String           @db.VarChar(127)
-  password_hash String           @db.VarChar(255)
-  name          String           @db.VarChar(127)
-  surname       String           @db.VarChar(127)
-  middleName    String?          @db.VarChar(127)
-  role          Int              @db.SmallInt //Обычный пользователь = 0, ХР = 1
-  createdAt     DateTime         @db.Timestamptz(6)
-  banned        Boolean
-  lastseen      DateTime?        @db.Timestamptz(6)
-  refreshTokens refreshTokens[]
-  skill_to_user skill_to_user[]
-  programmer    programmerInfo[]
-  file_url      file_url[]
-  file_access   file_access[]
-  company       companyInfo[]
-  user_photo    user_photo[]
+  id                Int                 @id @default(autoincrement())
+  email             String              @db.VarChar(127)
+  password_hash     String              @db.VarChar(255)
+  name              String              @db.VarChar(127)
+  surname           String              @db.VarChar(127)
+  middleName        String?             @db.VarChar(127)
+  role              Int                 @db.SmallInt //Обычный пользователь = 0, ХР = 1
+  createdAt         DateTime            @db.Timestamptz(6)
+  banned            Boolean
+  lastseen          DateTime?           @db.Timestamptz(6)
+  refreshTokens     refreshTokens[]
+  skill_to_user     skill_to_user[]
+  programmer        programmerInfo[]
+  file_url          file_url[]
+  file_access       file_access[]
+  company           companyInfo[]
+  user_photo        user_photo[]
+  checklist_history checklist_history[]
 }
 
 model skill {
-  id            Int             @id @default(autoincrement())
-  name          String
-  skill_to_user skill_to_user[]
-  event         event[]
+  id             Int              @id @default(autoincrement())
+  name           String
+  skill_to_user  skill_to_user[]
+  event          event[]
+  skill_to_event skill_to_event[]
 }
 
 model user_photo {
@@ -79,13 +81,22 @@ model companyInfo {
 }
 
 model event {
-  id          Int      @id @default(autoincrement())
-  name        String
-  description String
-  date        DateTime @db.Timestamptz(6)
-  place       String
-  skillsIds   Int[]
-  skill       skill    @relation(fields: [skillsIds], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  id             Int              @id @default(autoincrement())
+  name           String
+  description    String
+  date           DateTime         @db.Timestamptz(6)
+  place          String
+  skill_to_event skill_to_event[]
+  skill          skill?           @relation(fields: [skillId], references: [id])
+  skillId        Int?
+}
+
+model skill_to_event {
+  id      Int   @id @default(autoincrement())
+  skillId Int
+  eventId Int
+  event   event @relation(fields: [skillId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  skill   skill @relation(fields: [eventId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model achivements {
@@ -116,4 +127,11 @@ model file_access {
   userId    Int
   user      user?     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   fileUrl   file_url? @relation(fields: [fileUrlId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model checklist_history {
+  id     Int    @id @default(autoincrement())
+  userId Int
+  text   String @db.Text
+  user   user?  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }

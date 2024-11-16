@@ -37,7 +37,23 @@ checklistRouter.get("/checklist", async (req, res) => {
 
     const aiResponse = await getChecklist(goal, skillNames.join())
 
+    await prisma.checklist_history.create({
+        data: {
+            userId: req.tokenID,
+            text: aiResponse
+        }
+    })
+
     res.send({response: aiResponse})
+})
+
+checklistRouter.get("/checklist/history", async (req, res) => {
+    const page = parseInt(req.query.page as string) || 0
+    const searchString = inputHandler.defaultHandler(req.query.searchString as string) || ""
+
+    const pageSize = 10
+
+    
 })
 
 export default checklistRouter
