@@ -19,7 +19,6 @@ const useUserStore = create<UserStore>((set) => ({
   user: JSON.parse(localStorage.getItem("user") || "{}") || null,
   hasNext: JSON.parse(localStorage.getItem("hasNext") || "false"),
   setUser: (user) => {
-    localStorage.setItem("isAuth", JSON.stringify(true));
     localStorage.setItem("user", JSON.stringify(user));
     set({ user });
   },

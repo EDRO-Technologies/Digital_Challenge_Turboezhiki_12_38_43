@@ -10,40 +10,114 @@ const Event = () => {
   return (
     <div className="flex flex-col">
       <Header />
-      <div className=" bg-custom-gradient min-h-[80vh]">
+      <div className="mt-[46px] mb-[80px] ">
         <div className="container mx-auto px-[16px]">
-          <h1 className=" uppercase mt-[140px] text-[56px] font-bold text-white tracking-[-0.5px]">
-            Твоя траектория успеха начинается здесь
+          <h1 className=" uppercase  text-[56px] font-bold text-[#0C1C35] tracking-[-0.5px]">
+            ПОГРУЖАЙСЯ В МИР IT-СОБЫТИЙ югры
           </h1>
+          <span className="text-[#0C1C35]">
+            Хакатоны, митапы и конкурсы ждут тебя. Сделай первый шаг к новым
+            знаниям и знакомствам!
+          </span>
         </div>
       </div>
-      <div className="w-full">
+      <div className="mb-[39px]">
         <div className="container mx-auto px-[16px]">
-          <div className="flex flex-col gap-[18px]">
-            <h1 className="uppercase text-[80px]">Мероприятия</h1>
-            <div className="cards flex flex-col gap-[20px]">
-              <div className="flex gap-[43px] bg-white rounded-[45px] p-[20px]">
-                <div className="flex gap-[43px]  rounded-[45px]">
-                  <img src={Template1} alt="template1" />
-                </div>
-                <div className="flex flex-col items-start flex-1">
-                  <div className="flex flex-col flex-1 text">
-                    <div className="flex gap-[19px]">
-                      <div className="bg-[#F4F5FF] text-[18px] px-[20px] rounded-[30px] py-[10px]">
-                        До начала осталось
-                      </div>
-                      <div className="bg-[#F4F5FF] text-[18px] px-[20px] rounded-[30px] py-[10px]">
-                        Хакатон
-                      </div>
+          <div className="flex gap-[21px]">
+            <Button className="italic">Все мероприятия</Button>
+            <Button variant={"outline"} className="italic">
+              Интенсивы
+            </Button>
+            <Button variant={"outline"} className="italic">
+              Форумы
+            </Button>
+            <Button variant={"outline"} className="italic">
+              Хакатоны
+            </Button>
+          </div>
+        </div>
+      </div>
+      <div className="w-full mb-[80px]">
+        <div className="container mx-auto px-[16px]">
+          <div className="flex flex-col gap-[28px]">
+            <div className="flex cards gap-[22px]">
+              <div className="flex flex-1 flex-col gap-[31px] card bg-white border rounded-[45px] p-[13px]">
+                <img src={Template1} alt="template1" />
+                <div className="flex flex-col">
+                  <div className="flex gap-[20px]">
+                    <div className="bg-[#F4F5FF] rounded-[30px] p-[10px]">
+                      <h1>До начала осталось 7 дней 12 часов 46 минут</h1>
                     </div>
-
-                    <h1 className="text-[42px]"> Digital challenge</h1>
-                    <span className="text-[22px]"> Дата: 16-17 ноября</span>
-                    <span className="text-[22px]"> Время: 10:00</span>
-                    <span className="text-[22px]">
-                      Место: г. Сургут, школа 21
-                    </span>
+                    <div className="bg-[#F4F5FF] rounded-[30px] p-[10px]">
+                      <h1>Хакатон</h1>
+                    </div>
                   </div>
+                  <div className="flex flex-col gap-[30px] items-center">
+                    <h1 className="text-[42px]">Хакатон 2024</h1>
+                    <p className="text-center text-[22px]">
+                      <span className="block">Дата: 30 ноября - 1 декабря</span>
+                      <span className="block">Время: 10:00</span>
+                      <span className="block">Место: г. Сургут, школа 21</span>
+                    </p>
+                    <Button
+                      variant={"outline"}
+                      size={"default"}
+                      className="self-end text-[20px]"
+                    >
+                      Участвовать
+                      <img src={Arrow} alt="#" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-1 flex-col gap-[31px] card bg-white border rounded-[45px] p-[13px]">
+                <img src={Template2} alt="template1" />
+                <div className="flex flex-col">
+                  <div className="flex gap-[20px]">
+                    <div className="bg-[#F4F5FF] rounded-[30px] p-[10px]">
+                      <h1>До начала осталось 7 дней 12 часов 46 минут</h1>
+                    </div>
+                    <div className="bg-[#F4F5FF] rounded-[30px] p-[10px]">
+                      <h1>Хакатон</h1>
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-[30px] items-center">
+                    <h1 className="text-[42px]">Хакатон 2024</h1>
+                    <p className="text-center text-[22px]">
+                      <span className="block">Дата: 30 ноября - 1 декабря</span>
+                      <span className="block">Время: 10:00</span>
+                      <span className="block">Место: г. Сургут, школа 21</span>
+                    </p>
+                    <Button
+                      variant={"outline"}
+                      size={"default"}
+                      className="self-end text-[20px]"
+                    >
+                      Участвовать
+                      <img src={Arrow} alt="#" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="flex  gap-[31px] card bg-white border rounded-[45px] p-[13px]">
+              <img src={Template3} alt="template1" />
+              <div className="flex flex-col">
+                <div className="flex gap-[20px]">
+                  <div className="bg-[#F4F5FF] rounded-[30px] p-[10px]">
+                    <h1>До начала осталось 7 дней 12 часов 46 минут</h1>
+                  </div>
+                  <div className="bg-[#F4F5FF] rounded-[30px] p-[10px]">
+                    <h1>Хакатон</h1>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-[30px] items-start">
+                  <h1 className="text-[42px]">IT-форум</h1>
+                  <p className=" text-left text-[22px]">
+                    <span className="block">Дата: 30 ноября - 1 декабря</span>
+                    <span className="block">Время: 10:00</span>
+                    <span className="block">Место: г. Сургут, школа 21</span>
+                  </p>
                   <Button
                     variant={"outline"}
                     size={"default"}
@@ -54,28 +128,109 @@ const Event = () => {
                   </Button>
                 </div>
               </div>
-              <div className="flex gap-[43px] bg-white rounded-[45px] p-[20px]">
-                <div className="flex gap-[43px]  rounded-[45px]">
-                  <img src={Template2} alt="template1" />
-                </div>
-                <div className="flex flex-col items-start flex-1">
-                  <div className="flex flex-col flex-1 text">
-                    <div className="flex gap-[19px]">
-                      <div className="bg-[#F4F5FF] text-[18px] px-[20px] rounded-[30px] py-[10px]">
-                        До начала осталось
-                      </div>
-                      <div className="bg-[#F4F5FF] text-[18px] px-[20px] rounded-[30px] py-[10px]">
-                        Хантатон 2024
-                      </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="bg-[#09147A] py-[85px]">
+        <div className="container mx-auto px-[16px] text-white">
+          <div className="flex flex-col w-full">
+            <h1 className="uppercase text-[56px] mb-[65px] italic">
+              Готовы узнать что-то новое?
+            </h1>
+            <h1 className="text-[64px] uppercase leading-3 font-bold">
+              Записывайтесь
+            </h1>
+            <h1 className="text-[100px] uppercase font-bold self-center mr-[50px]">
+              Прямо
+            </h1>
+            <h1 className="text-[70px] ml-[400px] uppercase font-bold self-center">
+              Сейчас
+            </h1>
+          </div>
+        </div>
+      </div>
+      <div className="w-full mb-[80px]">
+        <div className="container mx-auto px-[16px]">
+          <div className="flex flex-col gap-[28px]">
+            <div className="flex mt-[22px] cards gap-[22px]">
+              <div className="flex flex-1 flex-col gap-[31px] card bg-white border rounded-[45px] p-[13px]">
+                <img src={Template1} alt="template1" />
+                <div className="flex flex-col">
+                  <div className="flex gap-[20px]">
+                    <div className="bg-[#F4F5FF] rounded-[30px] p-[10px]">
+                      <h1>До начала осталось 7 дней 12 часов 46 минут</h1>
                     </div>
-
-                    <h1 className="text-[42px]"> Digital challenge</h1>
-                    <span className="text-[22px]"> Дата: 16-17 ноября</span>
-                    <span className="text-[22px]"> Время: 10:00</span>
-                    <span className="text-[22px]">
-                      Место: г. Сургут, школа 21
-                    </span>
+                    <div className="bg-[#F4F5FF] rounded-[30px] p-[10px]">
+                      <h1>Хакатон</h1>
+                    </div>
                   </div>
+                  <div className="flex flex-col gap-[30px] items-center">
+                    <h1 className="text-[42px]">Хакатон 2024</h1>
+                    <p className="text-center text-[22px]">
+                      <span className="block">Дата: 30 ноября - 1 декабря</span>
+                      <span className="block">Время: 10:00</span>
+                      <span className="block">Место: г. Сургут, школа 21</span>
+                    </p>
+                    <Button
+                      variant={"outline"}
+                      size={"default"}
+                      className="self-end text-[20px]"
+                    >
+                      Участвовать
+                      <img src={Arrow} alt="#" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-1 flex-col gap-[31px] card bg-white border rounded-[45px] p-[13px]">
+                <img src={Template2} alt="template1" />
+                <div className="flex flex-col">
+                  <div className="flex gap-[20px]">
+                    <div className="bg-[#F4F5FF] rounded-[30px] p-[10px]">
+                      <h1>До начала осталось 7 дней 12 часов 46 минут</h1>
+                    </div>
+                    <div className="bg-[#F4F5FF] rounded-[30px] p-[10px]">
+                      <h1>Хакатон</h1>
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-[30px] items-center">
+                    <h1 className="text-[42px]">Хакатон 2024</h1>
+                    <p className="text-center text-[22px]">
+                      <span className="block">Дата: 30 ноября - 1 декабря</span>
+                      <span className="block">Время: 10:00</span>
+                      <span className="block">Место: г. Сургут, школа 21</span>
+                    </p>
+                    <Button
+                      variant={"outline"}
+                      size={"default"}
+                      className="self-end text-[20px]"
+                    >
+                      Участвовать
+                      <img src={Arrow} alt="#" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="flex  gap-[31px] card bg-white border rounded-[45px] p-[13px]">
+              <img src={Template3} alt="template1" />
+              <div className="flex flex-col">
+                <div className="flex gap-[20px]">
+                  <div className="bg-[#F4F5FF] rounded-[30px] p-[10px]">
+                    <h1>До начала осталось 7 дней 12 часов 46 минут</h1>
+                  </div>
+                  <div className="bg-[#F4F5FF] rounded-[30px] p-[10px]">
+                    <h1>Хакатон</h1>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-[30px] items-start">
+                  <h1 className="text-[42px]">IT-форум</h1>
+                  <p className=" text-left text-[22px]">
+                    <span className="block">Дата: 30 ноября - 1 декабря</span>
+                    <span className="block">Время: 10:00</span>
+                    <span className="block">Место: г. Сургут, школа 21</span>
+                  </p>
                   <Button
                     variant={"outline"}
                     size={"default"}

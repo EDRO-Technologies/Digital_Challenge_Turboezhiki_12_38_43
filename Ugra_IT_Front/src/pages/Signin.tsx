@@ -42,10 +42,9 @@ const Signin = () => {
 
   const mutation = useMutation(loginUser, {
     onSuccess: (data) => {
-      console.log(data);
       setUser(data);
 
-      navigate("/next");
+      navigate("/event");
     },
     onError: (error) => {
       console.error("Ошибка авторизации:", error);

@@ -17,10 +17,17 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { axiosInstance } from "@/utils/api";
 import { useMutation } from "react-query";
 import { useShallow } from "zustand/shallow";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 const programmerSchema = z.object({
   birthDate: z.string(),
   expYear: z.number(),
-  eduStatus: z.string(),
+  eduStatus: z.number(),
   eduPlace: z.string().max(255),
 });
 
@@ -52,8 +59,8 @@ const NextForm = () => {
   const mutationProgrammer = useMutation(fetchProgrammer, {
     onSuccess: () => {
       setNextPage(false);
-      navigate("/");
-      console.log("Данные программиста успешно отправлены");
+      localStorage.setItem("isAuth", "true");
+      navigate("/event");
     },
     onError: (error) => {
       console.error("Ошибка при отправке данных программиста:", error);
@@ -63,7 +70,7 @@ const NextForm = () => {
     onSuccess: () => {
       setNextPage(false);
 
-      navigate("/");
+      navigate("/event");
       console.log("Данные работника успешно отправлены");
     },
     onError: (error) => {
@@ -130,7 +137,10 @@ const NextForm = () => {
                       <Input
                         placeholder="Стаж работы"
                         type="number"
-                        {...field}
+                        value={field.value}
+                        onChange={(e) =>
+                          field.onChange(parseInt(e.target.value))
+                        }
                       />
                     </FormControl>
                     <FormMessage />
@@ -145,7 +155,29 @@ const NextForm = () => {
                   <FormItem>
                     <FormLabel>Ваш уровень образования</FormLabel>
                     <FormControl>
-                      <Input placeholder="Ваш уровень образования" {...field} />
+                      <Select
+                        value={field.value.toString()}
+                        onValueChange={(value) => {
+                          console.log(value);
+                          field.onChange(parseInt(value));
+                        }}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Выберите уровень образования" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="0">Нет образования</SelectItem>
+                          <SelectItem value="1">Базовое</SelectItem>
+                          <SelectItem value="2">Среднее общее</SelectItem>
+                          <SelectItem value="3">
+                            Среднее профессиональное
+                          </SelectItem>
+                          <SelectItem value="4">Неоконченное высшее</SelectItem>
+                          <SelectItem value="5">Высшее</SelectItem>
+                          <SelectItem value="6">Магистратура</SelectItem>
+                          <SelectItem value="7">Аспирантура</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
