@@ -99,5 +99,58 @@ userDataRouter.get("/data/skill/search", async (req, res) => {
     res.send(skillRows)
 })
 
+userDataRouter.get("/data/skill/user/:id", async (req, res) => {
+    const userId = parseInt(req.params.id)
+
+    if(userId === undefined){
+        res.sendStatus(400)
+        return
+    }
+
+    const userSkillsRows = await prisma.skill_to_user.findMany({
+        where:{
+            userId: userId
+        },
+        select: {
+            skill: {
+                select: {
+                    name: true,
+                },
+            }
+        }
+    })
+
+    res.send(userDataRouter)
+})
+
+userDataRouter.post("/data/skill", async (req, res) => {
+    const skillId = parseInt(req.query.skillId as string)
+
+    if(skillId === undefined){
+        res.sendStatus(400)
+        return
+    }
+
+    const skillRow = await prisma.skill.findFirst({
+        where: {
+            id: skillId
+        }
+    })
+
+    const result = await prisma.skill_to_user.create({
+        data: {
+            skillId: skillId,
+            userId: req.tokenID,
+            verified: false
+        }
+    })
+
+    res.send(result)
+})
+
+userDataRouter.post("/data/skill/upload", async (req, res) => {
+    const skillsNames = []
+})
+
 
 export default userDataRouter

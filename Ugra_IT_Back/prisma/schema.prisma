@@ -37,6 +37,7 @@ model skill {
   id            Int             @id @default(autoincrement())
   name          String
   skill_to_user skill_to_user[]
+  event         event[]
 }
 
 model user_photo {
@@ -78,10 +79,13 @@ model companyInfo {
 }
 
 model event {
-  id    Int      @id @default(autoincrement())
-  name  String
-  date  DateTime @db.Timestamptz(6)
-  place String
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  date        DateTime @db.Timestamptz(6)
+  place       String
+  skillsIds   Int[]
+  skill       skill    @relation(fields: [skillsIds], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model achivements {
