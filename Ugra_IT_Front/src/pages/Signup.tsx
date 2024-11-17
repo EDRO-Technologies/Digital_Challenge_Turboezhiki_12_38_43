@@ -18,6 +18,7 @@ import useUserStore from "@/store/useUserStore";
 import { useShallow } from "zustand/shallow";
 import { useMutation } from "react-query";
 import { axiosInstance } from "@/utils/api";
+import { useToast } from "@/hooks/use-toast";
 export const registerUser = async (userData) => {
   const response = await axiosInstance.post(
     `http://localhost:3001/auth/signup`,
@@ -58,6 +59,7 @@ const formSchema = z
   });
 
 const Signup = () => {
+  const { toast } = useToast();
   const { setUser, setNextPage } = useUserStore(
     useShallow((state) => ({
       setUser: state.setUser,
@@ -83,7 +85,18 @@ const Signup = () => {
       setUser(data);
       setNextPage(true);
     },
+    /*************  ✨ Codeium Command ⭐  *************/
+    /**
+     * Called when mutation encounters an error.
+     *
+     * @param {Error} error - Error that occurred during mutation.
+     */
+    /******  6e393e0f-9449-43c2-aed3-14130ca01ab0  *******/
     onError: (error) => {
+      toast({
+        title: "Ошибка регистрации",
+        description: error.response.data,
+      });
       console.error("Registration failed:", error);
     },
   });
