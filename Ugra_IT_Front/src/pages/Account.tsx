@@ -180,14 +180,14 @@ const Account = () => {
                       className="block text-sm font-medium text-gray-700"
                       htmlFor="username"
                     >
-                      Место работы
+                      Место учебы
                     </Label>
                     <Input
                       id="eduPlace"
                       placeholder={data?.eduPlace}
                       className="mt-1"
                     />
-                    <p className="text-xs text-gray-500">Ваше место работы</p>
+                    <p className="text-xs text-gray-500">Ваше место учебы</p>
                   </div>
                 </>
               )}
