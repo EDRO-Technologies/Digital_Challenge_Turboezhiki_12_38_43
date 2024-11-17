@@ -16,15 +16,17 @@ import { useMutation } from "react-query";
 import { axiosInstance } from "@/utils/api";
 import useUserStore from "@/store/useUserStore";
 import { useShallow } from "zustand/shallow";
+import { useToast } from "@/hooks/use-toast";
 const formSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(6),
+  email: z.string().email("Некорректный email"),
+  password: z.string().min(9, "Пароль должен быть не меньше 9 символов"),
 });
 const loginUser = async (values) => {
   const response = await axiosInstance.post("/auth/signin", values);
   return response.data;
 };
 const Signin = () => {
+  const { toast } = useToast();
   const { setUser, setNextPage } = useUserStore(
     useShallow((state) => ({
       setUser: state.setUser,
@@ -43,11 +45,14 @@ const Signin = () => {
   const mutation = useMutation(loginUser, {
     onSuccess: (data) => {
       setUser(data);
-
+      localStorage.setItem("isAuth", "true");
       navigate("/event");
     },
     onError: (error) => {
-      console.error("Ошибка авторизации:", error);
+      toast({
+        title: "Ошибка авторизации",
+        description: error.response.data,
+      });
     },
   });
 

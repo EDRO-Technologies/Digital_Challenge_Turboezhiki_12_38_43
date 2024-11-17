@@ -8,7 +8,7 @@ function generateAccessToken(id: number) {
     throw "No secret key for access token"
   return jwt.sign({id: id}, 
     process.env["ACCESS_TOKEN"], {
-    expiresIn: "36000s",
+    expiresIn: "360000s",
   });
 }
 

@@ -18,6 +18,7 @@ import useUserStore from "@/store/useUserStore";
 import { useShallow } from "zustand/shallow";
 import { useMutation } from "react-query";
 import { axiosInstance } from "@/utils/api";
+import { useToast } from "@/hooks/use-toast";
 export const registerUser = async (userData) => {
   const response = await axiosInstance.post(
     `http://localhost:3001/auth/signup`,
@@ -27,37 +28,38 @@ export const registerUser = async (userData) => {
 };
 const formSchema = z
   .object({
-    email: z.string().email(),
+    email: z.string().email("Некорректный email"),
     name: z.string().min(2, {
-      message: "Name must be at least 2 characters.",
+      message: "Имя должно быть не меньше 2 символов",
     }),
     surname: z.string().min(2, {
-      message: "Surname must be at least 2 characters.",
+      message: "Фамилия должна быть не меньше 2 символов.",
     }),
     middleName: z.string().min(2, {
-      message: "Middle name must be at least 2 characters.",
+      message: "Отчество должно быть не меньше 2 символов.",
     }),
     role: z.number(),
     age: z
       .number()
       .min(1, {
-        message: "Age is required.",
+        message: "Поле обязательно к заполению.",
       })
       .optional(),
     company: z.string().optional(),
     password: z.string().min(6, {
-      message: "Password must be at least 6 characters.",
+      message: "Пароль должен быть не меньше 9 символов.",
     }),
     confirmPassword: z.string().min(6, {
-      message: "Password must be at least 6 characters.",
+      message: "Пароль должен быть не меньше 9 символов.",
     }),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords must match",
+    message: "Пароли должны совпадать.",
     path: ["confirmPassword"],
   });
 
 const Signup = () => {
+  const { toast } = useToast();
   const { setUser, setNextPage } = useUserStore(
     useShallow((state) => ({
       setUser: state.setUser,
@@ -83,7 +85,18 @@ const Signup = () => {
       setUser(data);
       setNextPage(true);
     },
+    /*************  ✨ Codeium Command ⭐  *************/
+    /**
+     * Called when mutation encounters an error.
+     *
+     * @param {Error} error - Error that occurred during mutation.
+     */
+    /******  6e393e0f-9449-43c2-aed3-14130ca01ab0  *******/
     onError: (error) => {
+      toast({
+        title: "Ошибка регистрации",
+        description: error.response.data,
+      });
       console.error("Registration failed:", error);
     },
   });
@@ -122,7 +135,7 @@ const Signup = () => {
           onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col  space-y-8 p-2 overflow-auto rounded-lg border max-w-[500px] w-full "
         >
-          <h1 className="text-lg text-center">Регистрация</h1>
+          <h1 className="text-lg  text-center">Регистрация</h1>
           <FormField
             control={form.control}
             name="email"
@@ -200,7 +213,11 @@ const Signup = () => {
               <FormItem>
                 <FormLabel>Подтверждение пароля</FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="Подтверждени пароля" {...field} />
+                  <Input
+                    type="password"
+                    placeholder="Подтверждени пароля"
+                    {...field}
+                  />
                 </FormControl>
 
                 <FormMessage />

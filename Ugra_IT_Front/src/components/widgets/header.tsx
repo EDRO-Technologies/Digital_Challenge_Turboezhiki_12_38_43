@@ -52,7 +52,6 @@ const Header = () => {
           ) : (
             <Link to={"/account"} className="flex items-center gap-[20px]">
               <div className="w-[40px] h-[40px] rounded-full bg-gray-700" />
-              <span>{` ${user.surname}  ${user.name} ${user.middleName}`}</span>
             </Link>
           )}
         </div>

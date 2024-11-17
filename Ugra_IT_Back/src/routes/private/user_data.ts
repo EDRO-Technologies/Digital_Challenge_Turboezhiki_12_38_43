@@ -11,10 +11,12 @@ userDataRouter.post("/data/programmer", async (req, res) => {
     const eduStatus = parseInt(req.body.eduStatus) 
     const expYear = parseInt(req.body.expYear) 
     const eduPlace = inputHandler.defaultHandler(req.body.eduPlace) || null
+    console.log(req.body,!birthDate,  expYear === undefined, eduStatus === undefined, eduStatus < 0, eduStatus > 8)
     // const birthDate = inputHandler.defaultHandler(req.body.birthDate) 
 
-    if(!birthDate || !expYear || !eduStatus || eduStatus < 0 || eduStatus > 8){
+    if(!birthDate || expYear === undefined || eduStatus === undefined || eduStatus < 0 || eduStatus > 8){
         res.status(400).send("Данные введены неправильно")
+        return
     }
 
     const dataRow = await prisma.programmerInfo.findFirst({
