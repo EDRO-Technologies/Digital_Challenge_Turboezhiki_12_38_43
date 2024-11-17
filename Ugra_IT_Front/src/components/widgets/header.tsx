@@ -21,7 +21,7 @@ const Header = () => {
       <div className="container mx-auto px-[16px] ">
         <div className="flex justify-between inner">
           <div className="logo">
-            <Link to={"/event"}>
+            <Link to={"/"}>
               <img src={Logo} alt="logo" />
             </Link>
           </div>

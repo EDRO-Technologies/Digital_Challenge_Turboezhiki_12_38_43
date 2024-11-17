@@ -29,7 +29,7 @@ const Ai = () => {
     })();
   }, []);
 
-  async function getChecklist(event: any,retryCount = 3) {
+  async function getChecklist(event: any,retryCount = 5) {
     setResponseLoading(true)
     try {
       setResponse(await fetchAxios(goal))
@@ -37,7 +37,7 @@ const Ai = () => {
       console.log( retryCount, "Ошибка при запросе:", err);
       if (retryCount > 0) {
         console.log(`Повторная попытка... Осталось попыток: ${retryCount}`);
-        setTimeout(() => getChecklist(retryCount - 1), 1000); 
+        setTimeout(() => getChecklist(event ,retryCount - 1), 1000); 
       } else {
         console.log("Все попытки завершены");
       }
@@ -74,7 +74,7 @@ const Ai = () => {
                   </Button>
                 ))
               ) : (
-                <div>{JSON.stringify(history)}</div>
+                <div className="self-center">История пуста</div>
               )}
               </div>
             </div>

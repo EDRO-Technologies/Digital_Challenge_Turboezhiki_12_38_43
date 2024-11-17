@@ -143,7 +143,7 @@ const Signup = () => {
               <FormItem>
                 <FormLabel>Электронная почта</FormLabel>
                 <FormControl>
-                  <Input placeholder="Электронная почта" {...field} />
+                  <Input autocomplete="off" placeholder="Электронная почта" {...field} />
                 </FormControl>
 
                 <FormMessage />
@@ -157,7 +157,7 @@ const Signup = () => {
               <FormItem>
                 <FormLabel>Имя</FormLabel>
                 <FormControl>
-                  <Input placeholder="Имя" {...field} />
+                  <Input autocomplete="off" placeholder="Имя" {...field} />
                 </FormControl>
 
                 <FormMessage />
@@ -171,7 +171,7 @@ const Signup = () => {
               <FormItem>
                 <FormLabel>Фамилия</FormLabel>
                 <FormControl>
-                  <Input placeholder="Фамилия" {...field} />
+                  <Input autocomplete="off" placeholder="Фамилия" {...field} />
                 </FormControl>
 
                 <FormMessage />
@@ -185,7 +185,7 @@ const Signup = () => {
               <FormItem>
                 <FormLabel>Отчество</FormLabel>
                 <FormControl>
-                  <Input placeholder="Фамилия" {...field} />
+                  <Input autocomplete="off" placeholder="Фамилия" {...field} />
                 </FormControl>
 
                 <FormMessage />
@@ -243,7 +243,7 @@ const Signup = () => {
               </FormItem>
             )}
           />
-          {!isHr && (
+          {/* {!isHr && (
             <FormField
               control={form.control}
               name="age"
@@ -277,7 +277,7 @@ const Signup = () => {
                 </FormItem>
               )}
             />
-          )}
+          )} */}
           <Link className="text-center" to="/signin">
             У меня уже есть аккаунт
           </Link>
