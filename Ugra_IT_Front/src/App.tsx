@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import Wrapper from "./components/wrapper";
-import Home from "./pages/Tests";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import AuthProvider from "./utils/AuthProvider";
@@ -13,7 +12,8 @@ import Account from "./pages/Account";
 import Ai from "./pages/Ai";
 import NotFound from "./pages/NotFound";
 import { Toaster } from "./components/ui/toaster";
-
+import Test from "./pages/Test";
+import Home from "./pages/Home";
 function App() {
   const [count, setCount] = useState(0);
   const location = useLocation();
@@ -27,9 +27,9 @@ function App() {
             <Route path={"/signin"} element={<Signin />} />
           </Route>
           <Route path="/" element={<PrivateRoute />}>
-            <Route path={"tests"} element={<Home />} />
+            <Route path={"tests"} element={<Test />} />
             <Route index path={"event"} element={<Event />} />
-            <Route path={"/"} element={<Event />} />
+            <Route path={"/"} element={<Home />} />
 
             <Route path={"account"} element={<Account />} />
             <Route path={"navzlet-ai"} element={<Ai />} />

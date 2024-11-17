@@ -13,6 +13,8 @@ export default {
         "custom-gradient": "linear-gradient(90deg, #153F7C 0%, #0F1C1F 100%)",
         "button-gradient":
           "linear-gradient(121.72deg, #1CBCEC 8%, #09147A 76.01%)",
+        "main-gradient":
+          "linear-gradient(121.72deg, #1CBCEC 8%, #09147A 76.01%)",
       },
       colors: {
         background: "hsl(var(--background))",

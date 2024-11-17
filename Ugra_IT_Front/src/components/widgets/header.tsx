@@ -10,7 +10,7 @@ const Header = () => {
   const links = [
     { path: "/tests", label: "Тесты" },
     { path: "/event", label: "Мероприятия" },
-    { path: "/toys", label: "Плюшки" },
+    { path: "/toys", label: "Меры поддержки" },
     { path: "/grants", label: "Гранты" },
     { path: "/navzlet-ai", label: "На взлёт! AI" },
     { path: "/courses", label: "Курсы" },
