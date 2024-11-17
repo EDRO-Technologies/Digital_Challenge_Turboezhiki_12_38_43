@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import Footer from "@/components/widgets/Footer";
 import Header from "@/components/widgets/header";
 import { Link } from "react-router-dom";
 
@@ -73,6 +74,7 @@ const Test = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

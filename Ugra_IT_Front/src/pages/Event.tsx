@@ -5,6 +5,7 @@ import Template2 from "../assets/Template2.jpg";
 import Template3 from "../assets/Template3.jpg";
 import Arrow from "../assets/Arrow.svg";
 import { Button } from "@/components/ui/button";
+import Footer from "@/components/widgets/Footer";
 
 const Event = () => {
   return (
@@ -245,6 +246,7 @@ const Event = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

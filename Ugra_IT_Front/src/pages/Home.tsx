@@ -7,6 +7,7 @@ import Template2 from "../assets/Template2.jpg";
 import Template3 from "../assets/Template3.jpg";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import Footer from "@/components/widgets/Footer";
 
 const Home = () => {
   return (
@@ -347,6 +348,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };
