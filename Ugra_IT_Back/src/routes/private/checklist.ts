@@ -7,6 +7,7 @@ import { getChecklist } from "../../lib/ai";
 
 const prisma = new PrismaClient();
 
+
 checklistRouter.get("/checklist", async (req, res) => {
     const goal = inputHandler.defaultHandler(req.query.goal as string)
 
@@ -15,7 +16,7 @@ checklistRouter.get("/checklist", async (req, res) => {
         return
     }
 
-    if(goal.length < 10 || goal.length > 300){
+    if(goal.length < 5 || goal.length > 300){
         res.status(400).send("Слишком большой или слишком маленький запрос")
         return
     }

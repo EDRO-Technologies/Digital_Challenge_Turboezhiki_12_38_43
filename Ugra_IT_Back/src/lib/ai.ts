@@ -13,13 +13,14 @@ export async function getChecklist(goal: string, skills: string): Promise<string
         "modelUri": `gpt://${process.env["YANDEX_FOLDER"]}/yandexgpt-lite`,
         "completionOptions": {
           "stream": false,
-          "temperature": 0.8,
+          "temperature": 0.3,
           "maxTokens": "3000"
         },
         "messages": [
           {
             "role": "system",
-            "text": "Ты помощник, который помогает составить чек лист для достижения целей в программировании, пиши только чек лист и ничего более"
+            "text": "Ты помощник, который помогает составить чек лист для достижения целей в программировании, пиши только чек лист и ничего более в формате \
+            1. Задача \n +*Подзадача* \n +*Подзадача* \n 2. Задача \n +*Подзадача* \n +*Подзадача*"
           },
           {
             "role": "user",
