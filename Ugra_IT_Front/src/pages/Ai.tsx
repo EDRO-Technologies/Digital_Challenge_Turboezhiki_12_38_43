@@ -2,20 +2,39 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Header from "@/components/widgets/header";
 import { axiosInstance } from "@/utils/api";
-import { useEffect } from "react";
-const fetchAxios = async () => {
+import { useEffect, useState } from "react";
+const fetchAxios = async (goal: string) => {
   const { data } = await axiosInstance.get(
-    `/checklist?goal=${"Напиши мне что-нибудь"}`
+    `/checklist?goal=${goal}`
   );
-  console.log(data);
+  console.log(data.response)
+  return data.response.replace(/\n/g, "<br>");
+};
+const getHistory = async () => {
+  const { data } = await axiosInstance.get(
+    `/checklist/history`
+  );
+  console.log(data.response)
+  return data.response
 };
 const Ai = () => {
+  const [response, setResponse] = useState("")
+  const [goal, setGoal] = useState("")
+  const [history, getHistory] = useState([])
   useEffect(() => {
-    console.log("fsf");
     (async () => {
-      await fetchAxios();
+      // await fetchAxios("Выучить гит");
     })();
   }, []);
+
+  async function getChecklist() {
+    setResponse(await fetchAxios(goal))
+  }
+
+  async function setHistory(params:type) {
+    
+  }
+
   return (
     <div>
       <Header />
@@ -45,49 +64,12 @@ const Ai = () => {
             </div>
             <div className="flex flex-1 flex-col bg-white p-[10px]">
               <p>
-                Чек-лист для повышения квалификации по Git:
-                <br />
-                <br />
-                1. Изучение продвинутых команд: - Ознакомление с командами git
-                checkout, git rebase, git merge --no-ff, git stash, git revert.
-                - Понимание различий между этими командами и их использование в
-                разных ситуациях.
-                <br />
-                <br />
-                2. Управление ветками: - Создание и переключение между
-                локальными ветками. - Выполнение слияния веток и разрешение
-                конфликтов. - Использование веток для работы над разными
-                функциональными возможностями проекта.
-                <br />
-                <br />
-                3. Работа с удалённым репозиторием: - Настройка доступа к
-                удалённому репозиторию. - Отправка изменений в удалённый
-                репозиторий с использованием команды git push. - Работа с
-                ветками в удалённом репозитории.
-                <br />
-                <br />
-                4. Воспроизведение изменений: - Воспроизведение изменений из
-                удалённого репозитория на локальную машину с помощью команды git
-                fetch. - Изучение работы с командами git pull и git rebase для
-                обновления локального репозитория.
-                <br />
-                <br />
-                5. Тестирование и развёртывание: - Написание тестовых сценариев
-                для проверки изменений. - Деплой кода на сервер с использованием
-                Git и инструментов вроде GitHub Actions или GitLab CI/CD.
-                <br />
-                <br />
-                6. Безопасность: - Аутентификация и авторизация в Git с
-                использованием ключей SSH. - Защита репозиториев с помощью
-                Gitolite или других инструментов.
-                <br />
-                <br />
-                7. Обучение коллег: - Обучение других разработчиков работе с
-                Git. - Организация внутренних встреч или курсов для обмена
-                опытом.
+                <div dangerouslySetInnerHTML={{ __html: response }}/>
               </p>
-
-              <Input placeholder="Введите сообщение" />
+              <div className="flex flex-row gap-5">
+                <Input placeholder="Введите сообщение" className="mt-2" onChange={(e) => setGoal(e.target.value)}/>
+                <Button onClick={getChecklist}>Создать</Button>
+                </div>
             </div>
           </div>
         </div>

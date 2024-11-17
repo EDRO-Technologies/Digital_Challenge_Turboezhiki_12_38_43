@@ -10,7 +10,7 @@ userDataRouter.post("/data/programmer", async (req, res) => {
     const birthDate = inputHandler.defaultHandler(req.body.birthDate) 
     const eduStatus = parseInt(req.body.eduStatus) 
     const expYear = parseInt(req.body.expYear) 
-    const eduPlace = inputHandler.defaultHandler(req.body.birthDate) || null
+    const eduPlace = inputHandler.defaultHandler(req.body.eduPlace) || null
     // const birthDate = inputHandler.defaultHandler(req.body.birthDate) 
 
     if(!birthDate || !expYear || !eduStatus || eduStatus < 0 || eduStatus > 8){

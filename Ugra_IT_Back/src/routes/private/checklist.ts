@@ -35,16 +35,22 @@ checklistRouter.get("/checklist", async (req, res) => {
 
     const skillNames = userSkillsRows.map(row => row.skill.name);
 
-    const aiResponse = await getChecklist(goal, skillNames.join())
-
-    await prisma.checklist_history.create({
-        data: {
-            userId: req.tokenID,
-            text: aiResponse
-        }
-    })
-
-    res.send({response: aiResponse})
+    try{
+        const aiResponse = await getChecklist(goal, skillNames.join())
+        await prisma.checklist_history.create({
+            data: {
+                userId: req.tokenID,
+                goal: goal,
+                text: aiResponse
+            }
+        })
+    
+        res.send({response: aiResponse})
+    }
+    catch (err){
+        console.log(`${err}`)
+        res.send(500)
+    }
 })
 
 checklistRouter.get("/checklist/history", async (req, res) => {

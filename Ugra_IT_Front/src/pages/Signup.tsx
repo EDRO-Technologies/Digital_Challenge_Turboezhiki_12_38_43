@@ -186,7 +186,7 @@ const Signup = () => {
               <FormItem>
                 <FormLabel>Пароль</FormLabel>
                 <FormControl>
-                  <Input placeholder="Пароль" {...field} />
+                  <Input type="password" placeholder="Пароль" {...field} />
                 </FormControl>
 
                 <FormMessage />
@@ -200,7 +200,7 @@ const Signup = () => {
               <FormItem>
                 <FormLabel>Подтверждение пароля</FormLabel>
                 <FormControl>
-                  <Input placeholder="Подтверждени пароля" {...field} />
+                  <Input type="password" placeholder="Подтверждени пароля" {...field} />
                 </FormControl>
 
                 <FormMessage />
@@ -221,7 +221,7 @@ const Signup = () => {
                   />
                 </FormControl>
                 <div className="space-y-1 leading-none">
-                  <FormLabel>Я HR</FormLabel>
+                  <FormLabel>Я Работодатель</FormLabel>
                 </div>
               </FormItem>
             )}

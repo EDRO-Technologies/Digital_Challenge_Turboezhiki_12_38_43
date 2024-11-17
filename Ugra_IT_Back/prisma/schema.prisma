@@ -133,5 +133,6 @@ model checklist_history {
   id     Int    @id @default(autoincrement())
   userId Int
   text   String @db.Text
+  goal   String
   user   user?  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }

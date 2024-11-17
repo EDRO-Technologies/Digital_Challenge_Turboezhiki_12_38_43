@@ -83,7 +83,7 @@ const Signin = () => {
               <FormItem>
                 <FormLabel>Пароль</FormLabel>
                 <FormControl>
-                  <Input placeholder="Пароль" {...field} />
+                  <Input type="password" placeholder="Пароль" {...field} />
                 </FormControl>
 
                 <FormMessage />
