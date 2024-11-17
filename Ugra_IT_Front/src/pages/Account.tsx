@@ -10,6 +10,8 @@ import { axiosInstance } from "@/utils/api";
 import AvatarUpload from "@/components/widgets/AvatarUploader";
 import { Avatar } from "@files-ui/react";
 import Template from "../assets/Template1.jpg";
+import { useShallow } from "zustand/shallow";
+import { useNavigate } from "react-router-dom";
 function formatDate(inputDate) {
   // Преобразуем строку в объект Date
   const date = new Date(inputDate);
@@ -31,7 +33,9 @@ const fetchUserById = async (id) => {
   return response.data;
 };
 const Account = () => {
-  const user = useUserStore((state) => state.user);
+  const { user, clear } = useUserStore(
+    useShallow((state) => ({ user: state.user, clear: state.clearUser }))
+  );
   const [choose, setChoose] = useState("main");
   const { data } = useQuery(["user", user?.id], () => fetchUserById(user?.id), {
     enabled: !!user?.id,
@@ -42,6 +46,7 @@ const Account = () => {
   const handleChangeSource = (selectedFile) => {
     setImageSource(selectedFile);
   };
+  const navigate = useNavigate();
   return (
     <div className="">
       <Header />
@@ -66,6 +71,16 @@ const Account = () => {
               className="mt-[5px]"
             >
               Дополнительная информация
+            </Button>
+            <Button
+              variant={"outline"}
+              onClick={() => {
+                clear();
+                localStorage.clear();
+                navigate("/signin");
+              }}
+            >
+              Выход из аккаунта
             </Button>
           </aside>
           <div className="flex flex-col gap-[30px]  w-full ">

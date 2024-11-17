@@ -27,33 +27,33 @@ export const registerUser = async (userData) => {
 };
 const formSchema = z
   .object({
-    email: z.string().email(),
+    email: z.string().email("Некорректный email"),
     name: z.string().min(2, {
-      message: "Name must be at least 2 characters.",
+      message: "Имя должно быть не меньше 2 символов",
     }),
     surname: z.string().min(2, {
-      message: "Surname must be at least 2 characters.",
+      message: "Фамилия должна быть не меньше 2 символов.",
     }),
     middleName: z.string().min(2, {
-      message: "Middle name must be at least 2 characters.",
+      message: "Отчество должно быть не меньше 2 символов.",
     }),
     role: z.number(),
     age: z
       .number()
       .min(1, {
-        message: "Age is required.",
+        message: "Поле обязательно к заполению.",
       })
       .optional(),
     company: z.string().optional(),
     password: z.string().min(6, {
-      message: "Password must be at least 6 characters.",
+      message: "Пароль должен быть не меньше 9 символов.",
     }),
     confirmPassword: z.string().min(6, {
-      message: "Password must be at least 6 characters.",
+      message: "Пароль должен быть не меньше 9 символов.",
     }),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords must match",
+    message: "Пароли должны совпадать.",
     path: ["confirmPassword"],
   });
 
@@ -122,7 +122,7 @@ const Signup = () => {
           onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col  space-y-8 p-2 overflow-auto rounded-lg border max-w-[500px] w-full "
         >
-          <h1 className="text-lg text-center">Регистрация</h1>
+          <h1 className="text-lg  text-center">Регистрация</h1>
           <FormField
             control={form.control}
             name="email"
@@ -200,7 +200,11 @@ const Signup = () => {
               <FormItem>
                 <FormLabel>Подтверждение пароля</FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="Подтверждени пароля" {...field} />
+                  <Input
+                    type="password"
+                    placeholder="Подтверждени пароля"
+                    {...field}
+                  />
                 </FormControl>
 
                 <FormMessage />
