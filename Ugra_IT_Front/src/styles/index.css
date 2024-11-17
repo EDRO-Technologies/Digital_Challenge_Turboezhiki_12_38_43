@@ -139,7 +139,7 @@ body {
 
 @layer base {
   * {
-    @apply border-border transition-all duration-150 ease-in;
+    @apply border-border;
   }
   body {
     @apply bg-accent text-foreground;
