@@ -14,16 +14,16 @@ const getHistory = async () => {
   const { data } = await axiosInstance.get(
     `/checklist/history`
   );
-  console.log(data.response)
-  return data.response
+  console.log(data)
+  return data.reverse()
 };
 const Ai = () => {
   const [response, setResponse] = useState("")
   const [goal, setGoal] = useState("")
-  const [history, getHistory] = useState([])
+  const [history, setHistory] = useState([])
   useEffect(() => {
     (async () => {
-      // await fetchAxios("Выучить гит");
+      getHistoryAxios()
     })();
   }, []);
 
@@ -31,8 +31,17 @@ const Ai = () => {
     setResponse(await fetchAxios(goal))
   }
 
-  async function setHistory(params:type) {
-    
+  async function getHistoryAxios() {
+    setHistory(await getHistory())
+  }
+
+  const handleClick = (index: number) => {
+    setResponse((history[index] as any).text.replace(/\n/g, "<br>"))
+  }
+
+  const clearResponse = () => {
+    setResponse("")
+    setGoal("")
   }
 
   return (
@@ -40,26 +49,19 @@ const Ai = () => {
       <Header />
       <div className="">
         <div className="container mx-auto px-[16px]">
-          <div className="flex ">
+          <div className="flex flex-col md:flex-row ">
             <div className="flex flex-col  min-w-[300px] px-[10px] gap-[10px] py-[10px] items-center bg-[#E8E8F5] rounded-lg">
-              <Button className=" w-[200px]">Новый чат</Button>
+              <Button className=" w-[200px]" onClick={clearResponse}>Новая цель</Button>
               <div className="flex self-start gap-[10px] w-full text-left  flex-col">
-                <h1>Сегодня</h1>
-                <Button className="self-start" variant={"ghost"}>
-                  Изучить git
-                </Button>
-                <Button className="self-start" variant={"ghost"}>
-                  Изучить C++
-                </Button>
-              </div>
-              <div className="flex self-start gap-[10px] flex-col">
-                <h1>Вчера</h1>
-                <Button className="self-start" variant={"ghost"}>
-                  Изучить git
-                </Button>
-                <Button className="self-start" variant={"ghost"}>
-                  Изучить C++
-                </Button>
+              {history?.length ? (
+                history.map((item: { goal: string }, index: number) => (
+                  <Button key={item.goal || index} className="self-start" variant="ghost" onClick={() => handleClick(index)}>
+                    {item.goal}
+                  </Button>
+                ))
+              ) : (
+                <div>{JSON.stringify(history)}</div>
+              )}
               </div>
             </div>
             <div className="flex flex-1 flex-col bg-white p-[10px]">
@@ -67,9 +69,9 @@ const Ai = () => {
                 <div dangerouslySetInnerHTML={{ __html: response }}/>
               </p>
               <div className="flex flex-row gap-5">
-                <Input placeholder="Введите сообщение" className="mt-2" onChange={(e) => setGoal(e.target.value)}/>
+                <Input placeholder="Введите сообщение" className="mt-2" onChange={(e) => setGoal(e.target.value)} value={goal}/>
                 <Button onClick={getChecklist}>Создать</Button>
-                </div>
+              </div>
             </div>
           </div>
         </div>
